@@ -1,0 +1,8 @@
+2026-04-23 00:30:14 | nexus.training                      | INFO    | Total parameters: 930,109 (3.72 MB)
+2026-04-23 00:30:14 | nexus.training                      | INFO    | VRAM allocated: 3.7 MB
+2026-04-23 00:30:14 | nexus.training                      | INFO    | ================================================================
+2026-04-23 00:30:14 | nexus.training                      | INFO    |   STARTING HAPPO TRAINING
+2026-04-23 00:30:14 | nexus.training                      | INFO    |   Iterations: 20  |  Rollout: 2048  |  Batch: 256
+2026-04-23 00:30:14 | nexus.training                      | INFO    |   Device: cuda  |  Seed: 42
+2026-04-23 00:30:14 | nexus.training                      | INFO    | ================================================================
+2026-04-23 00:30:14 | nexus.training.happo_trainer        | INFO    | Starting HAPPO training: 20 iterations, rollout=2048 steps, device=cuda

@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ── NEXUS Design Tokens ────────────────────────────── */
+@theme {
+  --color-nexus-bg: #0a0e1a;
+  --color-nexus-panel: #111827;
+  --color-nexus-border: #1e293b;
+  --color-nexus-text: #e2e8f0;
+  --color-nexus-muted: #94a3b8;
+  --color-nexus-accent: #22d3ee;
+  --color-risk-green: #34d399;
+  --color-risk-amber: #fbbf24;
+  --color-risk-red: #f87171;
+  --color-nexus-glow: rgba(34, 211, 238, 0.15);
+}
+
+/* ── Base ───────────────────────────────────────────── */
+body {
+  background: var(--color-nexus-bg);
+  color: var(--color-nexus-text);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-nexus-bg); }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* ── Glassmorphism Panel ────────────────────────────── */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(30, 41, 59, 0.6);
+  border-radius: 12px;
+}
+
+/* ── Node Pulse Animation ───────────────────────────── */
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+}
+@keyframes pulse-amber {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+}
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.6); }
+  50% { box-shadow: 0 0 0 12px rgba(248, 113, 113, 0); }
+}
+
+.node-green  { animation: pulse-green 2.5s ease-in-out infinite; }
+.node-amber  { animation: pulse-amber 1.8s ease-in-out infinite; }
+.node-red    { animation: pulse-red 1.2s ease-in-out infinite; }
+
+/* ── Fade-in entrance ───────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in-up 0.4s ease-out both; }
+
+/* ── Feed Item Slide ────────────────────────────────── */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in { animation: slide-in 0.3s ease-out both; }
+
+/* ── Circuit Breaker Status LED ─────────────────────── */
+.led { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.led-closed    { background: #34d399; box-shadow: 0 0 6px #34d399; }
+.led-open      { background: #f87171; box-shadow: 0 0 8px #f87171; }
+.led-half-open { background: #fbbf24; box-shadow: 0 0 6px #fbbf24; }
+
+/* ── Pareto Axis ────────────────────────────────────── */
+.pareto-dot {
+  transition: all 0.3s ease;
+}
+.pareto-dot:hover {
+  transform: scale(1.6);
+  filter: brightness(1.3);
+}

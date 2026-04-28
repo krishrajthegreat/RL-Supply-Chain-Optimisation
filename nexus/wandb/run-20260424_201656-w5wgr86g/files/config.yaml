@@ -1,0 +1,96 @@
+_wandb:
+    value:
+        cli_version: 0.26.0
+        e:
+            5cylholanmlzaz7k5a4gy0rm684m66nv:
+                args:
+                    - --iterations
+                    - "2"
+                    - --device
+                    - cuda
+                    - --wandb-project
+                    - nexus_test
+                cpu_count: 16
+                cpu_count_logical: 24
+                cudaVersion: "12.9"
+                disk:
+                    /:
+                        total: "1023069384704"
+                        used: "453050310656"
+                email: krishraj91006@gmail.com
+                executable: C:\Users\KRISH\AppData\Local\Python\pythoncore-3.14-64\python.exe
+                gpu: NVIDIA GeForce RTX 5050 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 2560
+                      memoryTotal: "8546942976"
+                      name: NVIDIA GeForce RTX 5050 Laptop GPU
+                      uuid: GPU-4b6bd1c1-08bf-9c74-5634-1e871ff51563
+                host: LAPTOP-E8I07S9F
+                memory:
+                    total: "25380868096"
+                os: Windows-11-10.0.26200-SP0
+                program: -m nexus.training.train
+                python: CPython 3.14.3
+                root: C:\Users\KRISH\OneDrive\Desktop\NEXUS\nexus
+                startedAt: "2026-04-24T14:46:56.797371Z"
+                writerId: 5cylholanmlzaz7k5a4gy0rm684m66nv
+        m: []
+        python_version: 3.14.3
+        t:
+            "1":
+                - 1
+            "2":
+                - 1
+            "3":
+                - 2
+                - 15
+                - 16
+                - 61
+            "4": 3.14.3
+            "5": 0.26.0
+            "8":
+                - 3
+            "12": 0.26.0
+            "13": windows-amd64
+agents:
+    value:
+        - sentinel
+        - navigator
+        - guardian
+        - stockpile
+        - broker
+        - herald
+algorithm:
+    value: HAPPO
+batch_size:
+    value: 256
+clip_eps:
+    value: 0.2
+device:
+    value: cuda
+disruption_prob:
+    value: 0.02
+entropy_coef:
+    value: 0.01
+gae_lambda:
+    value: 0.95
+gamma:
+    value: 0.99
+iterations:
+    value: 2
+lr_actor:
+    value: 5e-05
+lr_critic:
+    value: 0.001
+max_steps:
+    value: 168
+rollout_steps:
+    value: 2048
+seed:
+    value: 42
+total_params:
+    value: 930109
+update_epochs:
+    value: 4

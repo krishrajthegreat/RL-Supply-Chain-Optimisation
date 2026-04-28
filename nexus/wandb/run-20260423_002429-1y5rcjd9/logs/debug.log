@@ -1,0 +1,13 @@
+2026-04-23 00:24:29,386 INFO    MainThread:20292 [wandb_setup.py:_flush():81] Current SDK version is 0.26.0
+2026-04-23 00:24:29,386 INFO    MainThread:20292 [wandb_setup.py:_flush():81] Configure stats pid to 20292
+2026-04-23 00:24:29,386 INFO    MainThread:20292 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-04-23 00:24:29,386 INFO    MainThread:20292 [wandb_init.py:setup_run_log_directory():721] Logging user logs to C:\Users\KRISH\OneDrive\Desktop\NEXUS\nexus\wandb\run-20260423_002429-1y5rcjd9\logs\debug.log
+2026-04-23 00:24:29,386 INFO    MainThread:20292 [wandb_init.py:setup_run_log_directory():722] Logging internal logs to C:\Users\KRISH\OneDrive\Desktop\NEXUS\nexus\wandb\run-20260423_002429-1y5rcjd9\logs\debug-internal.log
+2026-04-23 00:24:29,388 INFO    MainThread:20292 [wandb_init.py:init():848] calling init triggers
+2026-04-23 00:24:29,389 INFO    MainThread:20292 [wandb_init.py:init():853] wandb.init called with sweep_config: {}
+config: {'iterations': 20, 'rollout_steps': 2048, 'batch_size': 256, 'update_epochs': 4, 'lr_actor': 0.0003, 'lr_critic': 0.001, 'gamma': 0.99, 'gae_lambda': 0.95, 'clip_eps': 0.2, 'entropy_coef': 0.01, 'device': 'cuda', 'seed': 42, 'checkpoint_dir': 'checkpoints', 'log_interval': 10, 'save_interval': 100, 'max_steps': 168, 'disruption_prob': 0.02, 'wandb_project': 'nexus-marl-trial', 'wandb_entity': None, 'disable_wandb': False, '_wandb': {}}
+2026-04-23 00:24:29,389 INFO    MainThread:20292 [wandb_init.py:init():896] starting backend
+2026-04-23 00:24:31,922 INFO    MainThread:20292 [wandb_init.py:init():911] sending inform_init request
+2026-04-23 00:24:31,969 INFO    MainThread:20292 [wandb_init.py:init():919] backend started and connected
+2026-04-23 00:24:31,986 INFO    MainThread:20292 [wandb_init.py:init():989] updated telemetry
+2026-04-23 00:24:31,987 INFO    MainThread:20292 [wandb_init.py:init():1013] communicating run to backend with 90.0 second timeout

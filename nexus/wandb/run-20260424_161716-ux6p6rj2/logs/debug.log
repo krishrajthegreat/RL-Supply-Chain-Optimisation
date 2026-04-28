@@ -1,0 +1,21 @@
+2026-04-24 16:17:16,561 INFO    MainThread:24672 [wandb_setup.py:_flush():81] Current SDK version is 0.26.0
+2026-04-24 16:17:16,561 INFO    MainThread:24672 [wandb_setup.py:_flush():81] Configure stats pid to 24672
+2026-04-24 16:17:16,561 INFO    MainThread:24672 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-04-24 16:17:16,562 INFO    MainThread:24672 [wandb_init.py:setup_run_log_directory():721] Logging user logs to C:\Users\KRISH\OneDrive\Desktop\NEXUS\nexus\wandb\run-20260424_161716-ux6p6rj2\logs\debug.log
+2026-04-24 16:17:16,562 INFO    MainThread:24672 [wandb_init.py:setup_run_log_directory():722] Logging internal logs to C:\Users\KRISH\OneDrive\Desktop\NEXUS\nexus\wandb\run-20260424_161716-ux6p6rj2\logs\debug-internal.log
+2026-04-24 16:17:16,562 INFO    MainThread:24672 [wandb_init.py:init():848] calling init triggers
+2026-04-24 16:17:16,562 INFO    MainThread:24672 [wandb_init.py:init():853] wandb.init called with sweep_config: {}
+config: {'algorithm': 'HAPPO', 'iterations': 200, 'rollout_steps': 2048, 'batch_size': 256, 'update_epochs': 4, 'lr_actor': 5e-05, 'lr_critic': 0.001, 'gamma': 0.99, 'gae_lambda': 0.95, 'clip_eps': 0.2, 'entropy_coef': 0.01, 'max_steps': 168, 'disruption_prob': 0.02, 'seed': 42, 'device': 'cuda', 'total_params': 930109, 'agents': ['sentinel', 'navigator', 'guardian', 'stockpile', 'broker', 'herald'], '_wandb': {}}
+2026-04-24 16:17:16,563 INFO    MainThread:24672 [wandb_init.py:init():896] starting backend
+2026-04-24 16:17:19,141 INFO    MainThread:24672 [wandb_init.py:init():911] sending inform_init request
+2026-04-24 16:17:19,240 INFO    MainThread:24672 [wandb_init.py:init():919] backend started and connected
+2026-04-24 16:17:19,310 INFO    MainThread:24672 [wandb_init.py:init():989] updated telemetry
+2026-04-24 16:17:19,313 INFO    MainThread:24672 [wandb_init.py:init():1013] communicating run to backend with 90.0 second timeout
+2026-04-24 16:17:21,779 INFO    MainThread:24672 [wandb_init.py:init():1058] starting run threads in backend
+2026-04-24 16:17:23,609 INFO    MainThread:24672 [wandb_run.py:_console_start():2542] atexit reg
+2026-04-24 16:17:23,610 INFO    MainThread:24672 [wandb_run.py:_redirect():2391] redirect: wrap_raw
+2026-04-24 16:17:23,610 INFO    MainThread:24672 [wandb_run.py:_redirect():2460] Wrapping output streams.
+2026-04-24 16:17:23,610 INFO    MainThread:24672 [wandb_run.py:_redirect():2483] Redirects installed.
+2026-04-24 16:17:23,617 INFO    MainThread:24672 [wandb_init.py:init():1098] run started, returning control to user process
+2026-04-24 16:48:48,662 INFO    wandb-AsyncioManager-main:24672 [service_client.py:_forward_responses():134] Reached EOF.
+2026-04-24 16:48:48,662 INFO    wandb-AsyncioManager-main:24672 [mailbox.py:close():155] Closing mailbox, abandoning 1 handles.

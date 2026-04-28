@@ -1,0 +1,316 @@
+{
+  "suppliers": [
+    {
+      "supplier_id": "SUP-001",
+      "name": "Shenzhen MicroTech Components",
+      "country": "CN",
+      "region": "east_asia",
+      "tier": 1,
+      "product_category": "electronic_components",
+      "connected_nodes": ["shanghai_port"],
+      "revenue_annual_usd": 280000000,
+      "employee_count": 4200,
+      "financial_signals": {
+        "payment_delay_days": 12,
+        "altman_z_proxy": 3.2,
+        "revenue_trend_pct": 4.5,
+        "cash_flow_health": 0.85,
+        "debt_to_equity": 0.45
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "positive",
+        "linkedin_open_roles": 47,
+        "linkedin_open_roles_30d_ago": 38,
+        "glassdoor_sentiment": 0.72,
+        "employee_review_flags": []
+      },
+      "market_signals": {
+        "news_sentiment_score": 0.65,
+        "credit_insurance_status": "full_coverage",
+        "cds_spread_bps": null,
+        "supplier_supplier_risk": 0.08
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.91,
+        "parking_lot_occupancy": 0.85,
+        "shipping_dock_activity": 0.88
+      },
+      "composite_health_score": 0.84,
+      "health_status": "green",
+      "last_assessment_date": "2026-04-21"
+    },
+    {
+      "supplier_id": "SUP-002",
+      "name": "Bavaria Precision GmbH",
+      "country": "DE",
+      "region": "central_europe",
+      "tier": 1,
+      "product_category": "automotive_parts",
+      "connected_nodes": ["hamburg_port", "frankfurt_dc"],
+      "revenue_annual_usd": 420000000,
+      "employee_count": 6800,
+      "financial_signals": {
+        "payment_delay_days": 8,
+        "altman_z_proxy": 3.8,
+        "revenue_trend_pct": 2.1,
+        "cash_flow_health": 0.90,
+        "debt_to_equity": 0.32
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "positive",
+        "linkedin_open_roles": 62,
+        "linkedin_open_roles_30d_ago": 55,
+        "glassdoor_sentiment": 0.78,
+        "employee_review_flags": []
+      },
+      "market_signals": {
+        "news_sentiment_score": 0.71,
+        "credit_insurance_status": "full_coverage",
+        "cds_spread_bps": 85,
+        "supplier_supplier_risk": 0.05
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.94,
+        "parking_lot_occupancy": 0.90,
+        "shipping_dock_activity": 0.92
+      },
+      "composite_health_score": 0.89,
+      "health_status": "green",
+      "last_assessment_date": "2026-04-21"
+    },
+    {
+      "supplier_id": "SUP-003",
+      "name": "Gujarat Chemical Industries Ltd",
+      "country": "IN",
+      "region": "south_asia",
+      "tier": 2,
+      "product_category": "chemical_raw_materials",
+      "connected_nodes": ["mumbai_hub"],
+      "revenue_annual_usd": 85000000,
+      "employee_count": 1200,
+      "financial_signals": {
+        "payment_delay_days": 32,
+        "altman_z_proxy": 1.6,
+        "revenue_trend_pct": -8.3,
+        "cash_flow_health": 0.42,
+        "debt_to_equity": 1.85
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "declining",
+        "linkedin_open_roles": 3,
+        "linkedin_open_roles_30d_ago": 18,
+        "glassdoor_sentiment": 0.31,
+        "employee_review_flags": ["layoffs_mentioned", "management_instability", "delayed_salaries"]
+      },
+      "market_signals": {
+        "news_sentiment_score": -0.42,
+        "credit_insurance_status": "coverage_reduced",
+        "cds_spread_bps": null,
+        "supplier_supplier_risk": 0.35
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.38,
+        "parking_lot_occupancy": 0.25,
+        "shipping_dock_activity": 0.30
+      },
+      "composite_health_score": 0.32,
+      "health_status": "red",
+      "last_assessment_date": "2026-04-21"
+    },
+    {
+      "supplier_id": "SUP-004",
+      "name": "TechnoFab Singapore Pte Ltd",
+      "country": "SG",
+      "region": "southeast_asia",
+      "tier": 1,
+      "product_category": "semiconductor_packaging",
+      "connected_nodes": ["singapore_port"],
+      "revenue_annual_usd": 310000000,
+      "employee_count": 3100,
+      "financial_signals": {
+        "payment_delay_days": 6,
+        "altman_z_proxy": 4.1,
+        "revenue_trend_pct": 12.4,
+        "cash_flow_health": 0.93,
+        "debt_to_equity": 0.22
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "positive",
+        "linkedin_open_roles": 89,
+        "linkedin_open_roles_30d_ago": 72,
+        "glassdoor_sentiment": 0.82,
+        "employee_review_flags": []
+      },
+      "market_signals": {
+        "news_sentiment_score": 0.78,
+        "credit_insurance_status": "full_coverage",
+        "cds_spread_bps": 42,
+        "supplier_supplier_risk": 0.03
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.96,
+        "parking_lot_occupancy": 0.92,
+        "shipping_dock_activity": 0.95
+      },
+      "composite_health_score": 0.92,
+      "health_status": "green",
+      "last_assessment_date": "2026-04-21"
+    },
+    {
+      "supplier_id": "SUP-005",
+      "name": "Nordic Pharma Supply AS",
+      "country": "NO",
+      "region": "northern_europe",
+      "tier": 1,
+      "product_category": "pharmaceutical_ingredients",
+      "connected_nodes": ["hamburg_port", "rotterdam_port"],
+      "revenue_annual_usd": 190000000,
+      "employee_count": 2400,
+      "financial_signals": {
+        "payment_delay_days": 15,
+        "altman_z_proxy": 2.8,
+        "revenue_trend_pct": -1.2,
+        "cash_flow_health": 0.71,
+        "debt_to_equity": 0.65
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "flat",
+        "linkedin_open_roles": 12,
+        "linkedin_open_roles_30d_ago": 14,
+        "glassdoor_sentiment": 0.65,
+        "employee_review_flags": ["restructuring_rumor"]
+      },
+      "market_signals": {
+        "news_sentiment_score": 0.35,
+        "credit_insurance_status": "full_coverage",
+        "cds_spread_bps": 120,
+        "supplier_supplier_risk": 0.12
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.78,
+        "parking_lot_occupancy": 0.72,
+        "shipping_dock_activity": 0.75
+      },
+      "composite_health_score": 0.65,
+      "health_status": "amber",
+      "last_assessment_date": "2026-04-21"
+    },
+    {
+      "supplier_id": "SUP-006",
+      "name": "Jiangsu AutoParts Manufacturing",
+      "country": "CN",
+      "region": "east_asia",
+      "tier": 2,
+      "product_category": "automotive_components",
+      "connected_nodes": ["shanghai_port"],
+      "revenue_annual_usd": 52000000,
+      "employee_count": 850,
+      "financial_signals": {
+        "payment_delay_days": 28,
+        "altman_z_proxy": 1.9,
+        "revenue_trend_pct": -5.7,
+        "cash_flow_health": 0.48,
+        "debt_to_equity": 1.40
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "declining",
+        "linkedin_open_roles": 2,
+        "linkedin_open_roles_30d_ago": 11,
+        "glassdoor_sentiment": 0.38,
+        "employee_review_flags": ["layoffs_mentioned", "delayed_salaries"]
+      },
+      "market_signals": {
+        "news_sentiment_score": -0.18,
+        "credit_insurance_status": "under_review",
+        "cds_spread_bps": null,
+        "supplier_supplier_risk": 0.28
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.52,
+        "parking_lot_occupancy": 0.40,
+        "shipping_dock_activity": 0.45
+      },
+      "composite_health_score": 0.41,
+      "health_status": "amber",
+      "last_assessment_date": "2026-04-21"
+    },
+    {
+      "supplier_id": "SUP-007",
+      "name": "Osaka Electronics Corp",
+      "country": "JP",
+      "region": "east_asia",
+      "tier": 1,
+      "product_category": "precision_electronics",
+      "connected_nodes": ["tokyo_hub"],
+      "revenue_annual_usd": 580000000,
+      "employee_count": 7500,
+      "financial_signals": {
+        "payment_delay_days": 5,
+        "altman_z_proxy": 4.5,
+        "revenue_trend_pct": 6.8,
+        "cash_flow_health": 0.95,
+        "debt_to_equity": 0.18
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "positive",
+        "linkedin_open_roles": 104,
+        "linkedin_open_roles_30d_ago": 95,
+        "glassdoor_sentiment": 0.85,
+        "employee_review_flags": []
+      },
+      "market_signals": {
+        "news_sentiment_score": 0.82,
+        "credit_insurance_status": "full_coverage",
+        "cds_spread_bps": 35,
+        "supplier_supplier_risk": 0.02
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.97,
+        "parking_lot_occupancy": 0.93,
+        "shipping_dock_activity": 0.96
+      },
+      "composite_health_score": 0.93,
+      "health_status": "green",
+      "last_assessment_date": "2026-04-21"
+    },
+    {
+      "supplier_id": "SUP-008",
+      "name": "Lagos Textile Exports Ltd",
+      "country": "NG",
+      "region": "west_africa",
+      "tier": 3,
+      "product_category": "raw_textiles",
+      "connected_nodes": ["dubai_hub"],
+      "revenue_annual_usd": 18000000,
+      "employee_count": 380,
+      "financial_signals": {
+        "payment_delay_days": 45,
+        "altman_z_proxy": 1.1,
+        "revenue_trend_pct": -15.2,
+        "cash_flow_health": 0.28,
+        "debt_to_equity": 2.80
+      },
+      "operational_signals": {
+        "linkedin_hiring_trend": "declining",
+        "linkedin_open_roles": 0,
+        "linkedin_open_roles_30d_ago": 5,
+        "glassdoor_sentiment": 0.22,
+        "employee_review_flags": ["layoffs_mentioned", "management_instability", "delayed_salaries", "bankruptcy_rumor"]
+      },
+      "market_signals": {
+        "news_sentiment_score": -0.68,
+        "credit_insurance_status": "withdrawn",
+        "cds_spread_bps": null,
+        "supplier_supplier_risk": 0.55
+      },
+      "satellite_signals": {
+        "facility_activity_score": 0.18,
+        "parking_lot_occupancy": 0.10,
+        "shipping_dock_activity": 0.12
+      },
+      "composite_health_score": 0.18,
+      "health_status": "red",
+      "last_assessment_date": "2026-04-21"
+    }
+  ]
+}
