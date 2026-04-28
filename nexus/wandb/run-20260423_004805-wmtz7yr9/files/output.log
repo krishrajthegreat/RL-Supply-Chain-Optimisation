@@ -1,7 +1,0 @@
-2026-04-23 00:48:12 | nexus.training                      | INFO    | W&B run: https://wandb.ai/krishraj/nexus-marl/runs/wmtz7yr9
-2026-04-23 00:48:12 | nexus.training                      | INFO    | ================================================================
-2026-04-23 00:48:12 | nexus.training                      | INFO    |   STARTING HAPPO TRAINING
-2026-04-23 00:48:12 | nexus.training                      | INFO    |   Iterations: 200  |  Rollout: 512  |  Batch: 256
-2026-04-23 00:48:12 | nexus.training                      | INFO    |   Device: cuda  |  Seed: 42
-2026-04-23 00:48:12 | nexus.training                      | INFO    | ================================================================
-2026-04-23 00:48:12 | nexus.training.happo_trainer        | INFO    | Starting HAPPO training: 200 iterations, rollout=512 steps, device=cuda
