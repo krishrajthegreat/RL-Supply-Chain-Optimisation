@@ -116,7 +116,7 @@ export default function StatCard({
       </div>
 
       {/* Big value */}
-      <p className="mt-2 font-display text-3xl font-bold leading-none text-text">
+      <p className="mt-2 font-mono text-3xl font-bold leading-none text-text">
         {formatValue(animatedValue, value)}
       </p>
 

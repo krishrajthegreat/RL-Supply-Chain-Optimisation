@@ -75,6 +75,8 @@ During Execution (Production):
 
 ### The Six Agents
 
+*Note on Implementation: The six agents described below are implemented natively as interacting observation/action policies within the centralized `nexus/nexus/environment/supply_chain_env.py` PettingZoo MARL simulation. They are not built as standalone microservices, but their specific responsibilities (e.g., routing, circuit-breaking, inventory transfers) are actively modeled and trained within the environment.*
+
 ---
 
 #### AGENT 1: SENTINEL — Risk & Disruption Intelligence Agent
@@ -114,15 +116,11 @@ R_sentinel = α × Precision(predicted_disruptions, realized_disruptions)
 
 **Dark Signal Intelligence Module (OSINT Layer)**:
 
-This is what separates SENTINEL from every other risk model. Official carrier alerts lag reality by 6–24 hours. SENTINEL ingests:
+This is what separates SENTINEL from every other risk model. Official carrier alerts lag reality by 6–24 hours. SENTINEL extracts early disruption signals using the **Gemini 1.5 Flash API**:
 
-1. **Reddit/Twitter/X NLP Pipeline**: Domain-tuned BERT classifier trained to extract disruption signals from r/Truckers, r/logistics, freight broker Twitter, dock worker communities. Trained on 3 years of posts with retrospective labeling (did this post precede a confirmed disruption?). Signal triggers when volume + sentiment in a geographic cluster crosses 2.5σ above baseline.
+1. **Mock Social NLP Pipeline**: Uses Gemini 1.5 Flash to extract disruption signals from sample unstructured text (mock social media posts). It classifies the disruption type, location, and severity, triggering an alert when cluster volume crosses 2.5σ above baseline.
 
-2. **LinkedIn Hiring Signal Monitor**: Sudden drop in open logistics roles at a carrier or supplier = early distress signal. Companies stop hiring 4–8 weeks before financial trouble surfaces publicly. Uses LinkedIn public job posting data.
-
-3. **Trade Credit Insurance Withdrawal Detector**: When credit insurers quietly reduce coverage on a supplier, it's a leading indicator of financial distress. Monitor public trade credit databases and insurance announcements.
-
-4. **Satellite Imagery Analysis** (via Google Earth Engine API): Measure parking lot occupancy at major distribution centers and factories. Empty truck yards at normally busy facilities = operational distress signal.
+2. **Supplier Financial Health Signals**: Processes static JSON data representing early distress signals (e.g., simulated hiring freezes or negative sentiment) to proxy operational distress.
 
 ---
 
@@ -374,62 +372,19 @@ Key communication flows:
 
 ---
 
-## 3. FEDERATED INTELLIGENCE ARCHITECTURE
 
-### The Information Asymmetry Solution
-
-The Federated Disruption Intelligence Network allows competing logistics players to collectively improve the SENTINEL model without sharing raw operational data. This is the network effect moat.
-
-**Technical Implementation**:
-
-```
-Federated Learning Protocol (based on FedAvg with differential privacy):
-
-1. Global model G distributed to N participating companies
-2. Each company trains locally on their private disruption data → local model L_i
-3. Only model gradients (∇L_i) are shared to central aggregator, not raw data
-4. Differential privacy noise added: ∇L_i_private = ∇L_i + Gaussian(0, σ²)
-5. Aggregator computes: G_new = Σ(w_i × ∇L_i_private) where w_i ∝ data_contribution
-6. G_new distributed back to all participants
-```
-
-**Governance Model**: Contribution → Access Rights
-- Companies that contribute higher-quality disruption signal data receive higher-quality aggregated intelligence
-- Audit trail on all gradient contributions (privacy-preserving via zero-knowledge proofs)
-- Consortium governance: minimum 3 founding members, open to any logistics player
-
-**Why this wins**: A single company's SENTINEL sees 10,000 shipments/month. The federated network sees 10,000,000. Prediction accuracy improves ~40% from the first 10 members. The competitive advantage shifts from "data hoarding" to "interpretation quality."
-
----
-
-## 4. SUPPLIER FINANCIAL HEALTH RADAR
+## 3. SUPPLIER FINANCIAL HEALTH RADAR
 
 ### Beyond Tier-1 Visibility
 
 94% of supply disruptions originate at tier-2 or tier-3 suppliers. The Supplier Financial Health Radar extends SENTINEL's view upstream.
 
-**Signal Sources (all public)**:
-```
-Financial signals (quarterly lag):
-  - SEC/EDGAR filings: revenue trends, cash flow changes, debt covenant language
-  - Dun & Bradstreet PAYDEX score: payment behavior (leading indicator of distress by ~60 days)
-  - Altman Z-Score calculated from public financials
-
-Operational signals (weekly):
-  - LinkedIn hiring trends: reduction in open roles at supplier = distress signal
-  - Glassdoor sentiment: employee reviews mentioning layoffs, uncertainty, management changes
-  - Job board monitoring: mass layoff patterns
-
-Market signals (daily):
-  - Trade credit insurance withdrawal (public announcements)
-  - Supplier's supplier bankruptcies (tier-3 cascades to tier-2 to tier-1)
-  - Credit default swap spreads (for publicly traded suppliers)
-
-Satellite intelligence (weekly):
-  - Parking lot occupancy at supplier facilities via Google Earth Engine
-  - Facility lighting patterns (factory running or dark?)
-  - Shipping container activity at loading docks
-```
+**Signal Sources**:
+Currently implemented using simulated data (`suppliers.json`) to demonstrate the fusion of four intelligence categories:
+- **Financial signals**: Simulated payment delays, Altman-Z proxy, revenue trends.
+- **Operational signals**: Simulated hiring trends and sentiment analysis.
+- **Market signals**: Simulated news sentiment and credit insurance status.
+- **Satellite signals**: Simulated facility activity scores.
 
 **Composite Health Score**:
 ```
@@ -444,143 +399,31 @@ Thresholds:
   < 0.4: Red (auto-trigger backup supplier qualification, alert procurement)
 ```
 
-**Tier Mapping**: Build automated tier mapping using supplier-shared BOMs + public corporate registry data to identify tier-2 and tier-3 dependencies. This is the "unknown unknown" that most companies cannot see.
-
 ---
 
-## 5. GEOPOLITICAL RISK ENGINE
 
-### Routing in a Fractured World
-
-The Red Sea crisis (2024) added 14 days and $1,200/TEU to Asia-Europe shipments. The data to predict it existed months earlier.
-
-**Data Integration**:
-```
-ACLED (Armed Conflict Location & Event Data Project):
-  - Real-time conflict events with geographic coordinates
-  - Severity scoring (protests vs. armed conflict vs. airstrikes)
-  - Actor identification (state, non-state, proxy forces)
-
-GDELT (Global Database of Events, Language, and Tone):
-  - 300,000+ global news events/day, machine-coded
-  - Tone analysis: deteriorating diplomatic relationships
-  - Cross-border event cascades
-
-UN Security Council Meeting Frequency:
-  - Spike in emergency sessions = early geopolitical risk signal
-
-Trade Sanctions Compliance Layer:
-  - OFAC SDN list integration (real-time updates)
-  - EU sanctions database
-  - Auto-flag shipments touching sanctioned entities or territories
-  - Compliance cost calculator: routing around sanctioned territories
-```
-
-**Lane Risk Premium**: Each trade corridor has a geopolitical risk premium applied to its cost function. NAVIGATOR uses this in its Pareto optimization — the cheapest route through a conflict zone becomes more expensive once risk premium is correctly priced.
-
----
-
-## 6. BIOMIMETIC NETWORK DESIGN
-
-### Immune System Architecture for Distributed Resilience
-
-The biomimetic principle solves a critical scaling problem: a centralized control tower becomes a single point of failure and a bottleneck for real-time decisions at scale.
-
-**Two-Tier Response Architecture**:
-
-**Tier 1 — Innate Immunity (Local, Pre-Programmed)**:
-Each node (warehouse, port, carrier hub) runs a lightweight edge-deployed micro-agent with pre-programmed SOPs for the 20 most common disruption types:
-```
-Disruption: "weather_delay > 4h"
-Response: Stage outbound cargo, notify next carrier, alert downstream DC
-Execute: Automatically, within 60 seconds of trigger
-No central coordination required
-```
-
-**Tier 2 — Adaptive Immunity (Learned, Network-Wide)**:
-Novel or complex disruptions escalate to the MARL agents for policy-based response. The outcome is then stored as an "antibody" — a learned response template distributed to all nodes:
-```
-Novel disruption resolved → encode as antibody
-Antibody = {trigger_conditions, response_sequence, outcome_metrics}
-Distributed to all nodes → becomes part of innate immunity library
-Network becomes more resilient with each novel disruption resolved
-```
-
-**Cytokine Signaling (Distress Broadcasting)**:
-When a node detects anomaly, it broadcasts a structured distress signal to neighboring nodes with estimated impact radius. Adjacent nodes receive the signal and begin pre-emptive capacity expansion — recruiting backup carriers, clearing queue space — before the disruption's effects arrive.
-
----
-
-## 7. GOOGLE CLOUD ARCHITECTURE
-
-### Complete Technology Stack
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    NEXUS SYSTEM ARCHITECTURE                     │
-├─────────────────────────────────────────────────────────────────┤
-│  SIGNAL INGESTION LAYER                                          │
-│  Pub/Sub → Dataflow (Apache Beam) → BigQuery                    │
-│  Sources: IoT/GPS, Social APIs, GDELT, ACLED, Carrier EDI       │
-├─────────────────────────────────────────────────────────────────┤
-│  INTELLIGENCE LAYER                                              │
-│  Vertex AI: MARL training (HAPPO on TPUs)                       │
-│  Vertex AI Model Registry: versioned agent policies              │
-│  Google Earth Engine: satellite imagery analysis                 │
-│  Gemini API: NLP for OSINT signal processing                    │
-├─────────────────────────────────────────────────────────────────┤
-│  ROUTING & OPTIMIZATION LAYER                                    │
-│  Google Maps Platform: geospatial routing primitives            │
-│  Google OR-Tools: constraint optimization for route generation   │
-│  Cloud Spanner: globally consistent network state               │
-├─────────────────────────────────────────────────────────────────┤
-│  AGENT EXECUTION LAYER                                           │
-│  Google Kubernetes Engine: containerized agent deployment        │
-│  Cloud Run: event-triggered agent inference (low latency)       │
-│  Pub/Sub: inter-agent message passing                           │
-├─────────────────────────────────────────────────────────────────┤
-│  FEDERATED LEARNING HUB                                          │
-│  Vertex AI Federated Learning: gradient aggregation             │
-│  Cloud KMS: encryption for gradient privacy                     │
-│  Cloud Armor: consortium access control                          │
-├─────────────────────────────────────────────────────────────────┤
-│  HUMAN INTERFACE LAYER                                           │
-│  Firebase Realtime Database: live shipment state sync           │
-│  Google Maps JavaScript API: control tower visualization        │
-│  Looker Studio: executive dashboards and analytics              │
-│  Flutter (web/mobile): operator UI                              │
-└─────────────────────────────────────────────────────────────────┘
-```
+## 4. GOOGLE CLOUD ARCHITECTURE
 
 ### Key Google Services and Why
 
-**Vertex AI (Core ML Platform)**:
-MARL training requires massive compute. Vertex AI's TPU pods handle the centralized critic training. Model serving via Vertex AI endpoints ensures <100ms inference latency for routing decisions. AutoML handles the SENTINEL signal preprocessing pipeline.
+**Google Cloud Run (Backend Hosting)**:
+The FastAPI backend and pre-trained MARL inference engine are containerized and deployed to Cloud Run. This provides a serverless, auto-scaling endpoint that spins up instantly when the control tower requires routing decisions, ensuring low latency while remaining highly cost-effective.
 
-**Gemini API (OSINT NLP)**:
-The Dark Signal Intelligence module (OSINT layer) uses Gemini Pro to:
-- Classify freight-disruption relevance of social media posts
-- Extract location, carrier, and timing entities from unstructured text
-- Summarize geopolitical developments into structured risk signals
-- Generate natural-language explanations of agent decisions for operators
+**Gemini API (OSINT NLP & Explainability)**:
+The Dark Signal Intelligence module (OSINT layer) uses Gemini 1.5 Flash to:
+- Classify the disruption relevance, severity, and location of mock social media posts.
+- Act as an "Explainability Chatbot" to translate complex RL routing math into human-readable justifications for operators.
 
 **Google Maps Platform**:
-- Routes API: generate K=10 candidate routes for NAVIGATOR's action space
-- Distance Matrix API: cost/time matrix computation for STOCKPILE transfers
-- Maps JavaScript API: control tower visualization with real-time shipment overlays
+- **Deck.gl + MapLibre GL**: Powers the visual control tower frontend, providing a high-performance, custom-styled map with hardware-accelerated data layers to track global shipments and network health. (Note: Kept compatible with Google Maps API for potential GCP integration).
+- **Routes API**: Provides the underlying distance and transit-time matrices for the NAVIGATOR agent's route optimization logic.
 
-**Google OR-Tools**:
-Pre-computation of Pareto-optimal route candidates before they enter NAVIGATOR's action space. OR-Tools' vehicle routing problem (VRP) solver handles the combinatorial complexity of generating diverse route alternatives.
-
-**Google Earth Engine**:
-Satellite-based supplier health monitoring (parking lot occupancy, facility activity levels). Earth Engine's planetary-scale image processing makes this computationally feasible.
-
-**Firebase**:
-Real-time state synchronization for the control tower UI. Every agent decision, circuit breaker event, and inventory transfer is reflected in the operator's dashboard within 200ms.
+**Firebase Realtime Database**:
+Manages real-time state synchronization for the control tower UI. When the Cloud Run backend computes an RL step (like a node circuit breaking or a shipment rerouting), the state is pushed to Firebase, which instantly updates the React frontend without the need for complex WebSocket management.
 
 ---
 
-## 8. UN SDG ALIGNMENT
+## 5. UN SDG ALIGNMENT
 
 ### This is not a commercial pitch. It's development infrastructure.
 
@@ -598,7 +441,7 @@ The Federated Intelligence Network is architected as a global commons. Competing
 
 ---
 
-## 9. MVP SCOPE — WHAT TO BUILD FOR THE HACKATHON
+## 6. MVP SCOPE — WHAT TO BUILD FOR THE HACKATHON
 
 ### Demo Flow (7 minutes, guaranteed to land)
 
@@ -645,7 +488,7 @@ The demo must tell a single story: "A disruption just happened. Watch NEXUS hand
 2. SENTINEL mock: NLP classifier on sample social posts + rule-based risk scoring
 3. NAVIGATOR: OR-Tools based route optimizer with 3-objective Pareto (time/cost/carbon)
 4. GUARDIAN: Circuit breaker state machine with visual node health indicators
-5. Control Tower UI: Google Maps + Firebase real-time state (React/Flutter)
+5. Control Tower UI: Deck.gl + MapLibre GL + Firebase real-time state (React)
 6. HERALD: Alert triage feed with priority scoring
 
 **Priority 2 — Differentiators (Should Have)**:
@@ -663,7 +506,7 @@ The demo must tell a single story: "A disruption just happened. Watch NEXUS hand
 ### Technology Choices for MVP
 
 ```
-Frontend: React + Google Maps JavaScript API + Recharts + Framer Motion
+Frontend: React + Deck.gl + MapLibre GL + Recharts + Framer Motion
 Backend: FastAPI (Python) → Cloud Run
 ML Serving: Vertex AI endpoint (ONNX exported policy networks)
 State: Firebase Realtime Database
@@ -676,7 +519,7 @@ Auth: Firebase Auth
 
 ---
 
-## 10. EVALUATION METRICS
+## 7. EVALUATION METRICS
 
 ### How to Measure That This Works
 
@@ -703,7 +546,7 @@ Auth: Firebase Auth
 
 ---
 
-## 11. COMPETITIVE DIFFERENTIATION FROM OTHER HACKATHON ENTRIES
+## 8. COMPETITIVE DIFFERENTIATION FROM OTHER HACKATHON ENTRIES
 
 Most entries will build: a dashboard + ML anomaly detection + alerting. Judges have seen 50 of those.
 
@@ -721,7 +564,7 @@ NEXUS differentiates on 5 dimensions:
 
 ---
 
-## 12. PROJECT STRUCTURE
+## 9. PROJECT STRUCTURE
 
 ```
 NEXUS/                     # Root Project Directory
@@ -775,7 +618,7 @@ NEXUS/                     # Root Project Directory
 
 ---
 
-## 13. RISK REGISTER
+## 10. RISK REGISTER
 
 | Risk | Probability | Impact | Mitigation |
 |------|------------|--------|------------|
@@ -788,7 +631,7 @@ NEXUS/                     # Root Project Directory
 
 ---
 
-## 14. THE WINNING PITCH — KEY MESSAGES FOR JUDGES
+## 11. THE WINNING PITCH — KEY MESSAGES FOR JUDGES
 
 **Opening**: "The 2021 Suez Canal blockage cost the global economy $400 million per hour. The data to predict and route around it existed three days before it happened. Nobody was listening."
 

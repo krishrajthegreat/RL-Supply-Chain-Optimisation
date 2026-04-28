@@ -9,8 +9,8 @@
   --color-bg:       oklch(8%  0.01  142);   /* near-black void              */
   --color-surface:  oklch(11% 0.015 142);   /* card / panel background      */
   --color-border:   oklch(20% 0.04  142);   /* subtle panel borders         */
-  --color-neon:     oklch(85% 0.35  142);   /* primary neon green           */
-  --color-neon-dim: oklch(55% 0.25  142);   /* dimmed / inactive neon       */
+  --color-neon:     #5ed29c;                          /* primary neon green           */
+  --color-neon-dim: rgba(94, 210, 156, 0.55);          /* dimmed / inactive neon       */
   --color-warn:     oklch(75% 0.18   85);   /* amber warning                */
   --color-critical: oklch(60% 0.22   27);   /* red / critical alert         */
   --color-text:     oklch(92% 0.01  142);   /* primary readable text        */
@@ -18,7 +18,7 @@
 
   /* ── Typography tokens ── */
   --font-mono:    'JetBrains Mono', monospace;
-  --font-display: 'IBM Plex Mono', monospace;
+  --font-display: 'Syne', sans-serif;
 
   /* ── Spacing / radius tokens ── */
   --radius-sm: 0.125rem;
@@ -56,6 +56,13 @@
   @keyframes fade-in {
     from { opacity: 0; }
     to   { opacity: 1; }
+  }
+
+  --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes slide-up {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
   }
 
   --animate-pulse-red: pulse-glow-red 2.5s ease-in-out infinite;
@@ -160,7 +167,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.02em;
   }
 }

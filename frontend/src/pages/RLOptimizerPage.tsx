@@ -8,7 +8,7 @@ import {
   AreaChart,
 } from 'recharts'
 import { RotateCcw, TrendingUp, Crosshair, RefreshCw } from 'lucide-react'
-import RLLayout from '@/components/layout/RLLayout'
+import DashboardLayout from '@/components/layout/DashboardLayout'
 import { cn } from '@/lib/utils'
 
 /* ═══════════════════════════════════════════════════════════════
@@ -378,7 +378,7 @@ export default function RLOptimizerPage() {
   }, [])
 
   return (
-    <RLLayout>
+    <DashboardLayout>
       <div className="flex flex-col h-full -m-6">
         {/* ─── Top section: graph + action log ─── */}
         <div className="flex flex-1 min-h-0 overflow-hidden">
@@ -571,6 +571,6 @@ export default function RLOptimizerPage() {
           </div>
         </div>
       </div>
-    </RLLayout>
+    </DashboardLayout>
   )
 }

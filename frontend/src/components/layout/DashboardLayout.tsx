@@ -3,9 +3,12 @@ import { NavLink, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard,
   Globe,
-  Ship,
-  Package,
-  Settings,
+  PackageSearch,
+  ShieldAlert,
+  LineChart,
+  Truck,
+  Network,
+  BrainCircuit,
   Search,
   Bell,
   Radio,
@@ -14,16 +17,19 @@ import { cn } from '@/lib/utils'
 
 /* ── Navigation definition ── */
 const NAV_ITEMS = [
-  { label: 'Dashboard',        to: '/dashboard',        icon: LayoutDashboard },
-  { label: 'Global Map',       to: '/global-map',       icon: Globe },
-  { label: 'Fleet Analytics',  to: '/fleet-analytics',  icon: Ship },
-  { label: 'Cargo Operations', to: '/cargo-operations', icon: Package },
-  { label: 'System Settings',  to: '/system-settings',  icon: Settings },
+  { label: 'Dashboard',          to: '/dashboard',   icon: LayoutDashboard },
+  { label: 'Global Map',         to: '/global-map',  icon: Globe },
+  { label: 'Shipment Tracker',   to: '/shipments',   icon: PackageSearch },
+  { label: 'Risk Intelligence',  to: '/risk',        icon: ShieldAlert },
+  { label: 'Executive Insights', to: '/insights',    icon: LineChart },
+  { label: 'Fleet & Carriers',   to: '/fleet',       icon: Truck },
+  { label: 'Network Resilience', to: '/resilience',  icon: Network },
+  { label: 'RL Optimizer',       to: '/rl-optimizer',icon: BrainCircuit },
 ] as const
 
 /* ──────────────────────────────────────────────────────────────
    DashboardLayout
-   Fixed sidebar (250 px) + top navbar + scrollable content area
+   Fixed sidebar (240 px) + top navbar + scrollable content area
    ────────────────────────────────────────────────────────────── */
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const location = useLocation()
@@ -31,21 +37,32 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-dvh overflow-hidden bg-bg">
       {/* ─── Sidebar ─── */}
-      <aside className="flex w-[250px] shrink-0 flex-col border-r border-border bg-bg">
-        {/* Brand block */}
-        <div className="px-5 pt-5 pb-4">
-          <h1 className="font-display text-lg font-bold tracking-wider text-neon">
-            CYBER LOGISTICS
-          </h1>
+      <aside className="flex w-[240px] shrink-0 flex-col border-r border-border bg-bg">
+
+        {/* Brand block — matches landing page logo */}
+        <div className="flex items-center gap-3 px-5 pt-6 pb-5 border-b border-border">
+          <div className="relative w-6 h-6 shrink-0">
+            <svg viewBox="0 0 32 32" fill="none" className="w-full h-full">
+              <rect x="1" y="1" width="30" height="30" rx="3" stroke="oklch(85% 0.35 142)" strokeWidth="1.5" />
+              <path d="M8 16 L14 10 L20 16 L14 22 Z" stroke="oklch(85% 0.35 142)" strokeWidth="1.5" fill="none" />
+              <circle cx="16" cy="16" r="2" fill="oklch(85% 0.35 142)" />
+              <line x1="20" y1="16" x2="26" y2="16" stroke="oklch(85% 0.35 142)" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+          <div>
+            <h1 className="font-display text-[13px] font-bold tracking-[0.18em] text-neon uppercase leading-none">
+              NEXUS
+            </h1>
+            <p className="text-[9px] tracking-[0.22em] text-muted uppercase mt-0.5">
+              Control Tower
+            </p>
+          </div>
         </div>
 
-        {/* Command header */}
-        <div className="px-5 pb-6">
-          <p className="text-xs font-bold tracking-widest text-text/80">
-            COMMAND_OPS
-          </p>
-          <p className="mt-0.5 text-[10px] tracking-widest text-muted">
-            SYS_SECURE_ENCRYPTED
+        {/* Section label */}
+        <div className="px-5 pt-5 pb-2">
+          <p className="text-[9px] font-bold tracking-[0.28em] uppercase text-muted/50">
+            Navigation
           </p>
         </div>
 
@@ -58,33 +75,64 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 key={to}
                 to={to}
                 className={cn(
-                  'group flex items-center gap-3 rounded-sm px-3 py-2.5 text-[13px] font-medium transition-colors duration-150',
+                  'group flex items-center gap-3 rounded-md px-3 py-2.5 text-[12px] font-medium tracking-wide transition-all duration-150',
                   active
-                    ? 'border-l-[3px] border-neon bg-surface text-neon'
-                    : 'border-l-[3px] border-transparent text-muted hover:text-neon/80'
+                    ? 'bg-neon/8 text-neon border border-neon/20'
+                    : 'border border-transparent text-muted hover:text-neon/80 hover:bg-neon/4'
                 )}
               >
                 <Icon
-                  size={16}
+                  size={14}
                   className={cn(
                     'shrink-0 transition-colors duration-150',
                     active ? 'text-neon' : 'text-muted group-hover:text-neon/80'
                   )}
                 />
                 {label}
+                {active && (
+                  <span className="ml-auto h-1 w-1 rounded-full bg-neon" />
+                )}
               </NavLink>
             )
           })}
         </nav>
 
-        {/* Bottom status */}
+        {/* Section label — agents */}
+        <div className="px-5 pt-4 pb-2">
+          <p className="text-[9px] font-bold tracking-[0.28em] uppercase text-muted/50">
+            Active Agents
+          </p>
+        </div>
+
+        {/* Agent status pills */}
+        <div className="px-4 pb-4 space-y-1">
+          {[
+            { id: 'SENTINEL', color: 'text-neon' },
+            { id: 'NAVIGATOR', color: 'text-neon' },
+            { id: 'GUARDIAN', color: 'text-warn' },
+          ].map(({ id, color }) => (
+            <div
+              key={id}
+              className="flex items-center justify-between px-3 py-1.5 rounded-md border border-border/60"
+              style={{ background: 'rgba(255,255,255,0.01)' }}
+            >
+              <span className={`text-[10px] font-bold tracking-[0.18em] ${color}`}>{id}</span>
+              <span className="flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-neon animate-pulse" />
+                <span className="text-[9px] tracking-widest text-muted">LIVE</span>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom node status */}
         <div className="flex items-center gap-2 border-t border-border px-5 py-4">
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2 w-2 shrink-0">
             <span className="absolute inline-flex h-full w-full animate-pulse-glow rounded-full bg-neon" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-neon" />
           </span>
-          <span className="text-[11px] tracking-widest text-muted">
-            NODE_STATUS: ONLINE
+          <span className="text-[10px] tracking-[0.16em] text-muted uppercase">
+            System Online
           </span>
         </div>
       </aside>
@@ -96,47 +144,47 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           {/* Search */}
           <div className="relative flex-1 max-w-xs">
             <Search
-              size={14}
+              size={13}
               className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted"
             />
             <input
               id="search-systems"
               type="text"
               placeholder="Search systems..."
-              className="h-8 w-full rounded-sm border border-border bg-surface pl-8 pr-3 text-xs text-text placeholder:text-muted focus:border-neon-dim focus:outline-none"
+              className="h-8 w-full rounded-md border border-border bg-surface pl-8 pr-3 text-[11px] tracking-wide text-text placeholder:text-muted focus:border-neon/40 focus:outline-none transition-colors"
             />
           </div>
 
           <div className="ml-auto flex items-center gap-3">
-            {/* Bell icon */}
+            {/* Notifications */}
             <button
               id="btn-notifications"
               aria-label="Notifications"
-              className="flex h-8 w-8 items-center justify-center rounded-sm text-muted transition-colors hover:text-neon"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-transparent text-muted transition-all hover:text-neon hover:border-border"
             >
-              <Bell size={16} />
+              <Bell size={15} />
             </button>
 
-            {/* Broadcast/signal icon */}
+            {/* Broadcast */}
             <button
               id="btn-broadcast"
               aria-label="Broadcast"
-              className="flex h-8 w-8 items-center justify-center rounded-sm text-muted transition-colors hover:text-neon"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-transparent text-muted transition-all hover:text-neon hover:border-border"
             >
-              <Radio size={16} />
+              <Radio size={15} />
             </button>
 
-            {/* System ready pill */}
-            <div className="flex items-center gap-1.5 rounded-sm border border-neon px-3 py-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-neon" />
-              <span className="text-[11px] font-bold tracking-widest text-neon">
-                SYSTEM_READY
+            {/* System ready pill — matches landing page CTA style */}
+            <div className="flex items-center gap-1.5 rounded-full border border-neon/35 px-3 py-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-neon animate-pulse" />
+              <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-neon">
+                All Systems Go
               </span>
             </div>
 
-            {/* Avatar placeholder */}
-            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface">
-              <span className="text-[10px] font-bold text-muted">SU</span>
+            {/* Avatar */}
+            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface hover:border-neon/30 transition-colors">
+              <span className="text-[10px] font-bold tracking-wider text-muted">SU</span>
             </div>
           </div>
         </header>
