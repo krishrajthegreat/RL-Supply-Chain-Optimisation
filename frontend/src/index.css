@@ -1,86 +1,195 @@
 @import "tailwindcss";
 
-/* ── NEXUS Design Tokens ────────────────────────────── */
+/* ─────────────────────────────────────────────
+   NEXUS Design System – Tailwind v4 CSS-first
+   Theme: Cyber-terminal, OKLCH green on void
+   ───────────────────────────────────────────── */
 @theme {
-  --color-nexus-bg: #0a0e1a;
-  --color-nexus-panel: #111827;
-  --color-nexus-border: #1e293b;
-  --color-nexus-text: #e2e8f0;
-  --color-nexus-muted: #94a3b8;
-  --color-nexus-accent: #22d3ee;
-  --color-risk-green: #34d399;
-  --color-risk-amber: #fbbf24;
-  --color-risk-red: #f87171;
-  --color-nexus-glow: rgba(34, 211, 238, 0.15);
+  /* ── Color tokens ── */
+  --color-bg:       oklch(8%  0.01  142);   /* near-black void              */
+  --color-surface:  oklch(11% 0.015 142);   /* card / panel background      */
+  --color-border:   oklch(20% 0.04  142);   /* subtle panel borders         */
+  --color-neon:     oklch(85% 0.35  142);   /* primary neon green           */
+  --color-neon-dim: oklch(55% 0.25  142);   /* dimmed / inactive neon       */
+  --color-warn:     oklch(75% 0.18   85);   /* amber warning                */
+  --color-critical: oklch(60% 0.22   27);   /* red / critical alert         */
+  --color-text:     oklch(92% 0.01  142);   /* primary readable text        */
+  --color-muted:    oklch(55% 0.02  142);   /* secondary / muted text       */
+
+  /* ── Typography tokens ── */
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-display: 'IBM Plex Mono', monospace;
+
+  /* ── Spacing / radius tokens ── */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+
+  /* ── Animation tokens ── */
+  --animate-pulse-glow:    pulse-glow    2s ease-in-out infinite;
+  --animate-slide-in-right: slide-in-right 0.3s ease-out forwards;
+  --animate-fade-in:        fade-in       0.4s ease-out forwards;
+
+  /* ── Keyframes (must live inside @theme in v4) ── */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0px 0px oklch(85% 0.35 142 / 0%);
+    }
+    50% {
+      box-shadow:
+        0 0 12px 2px oklch(85% 0.35 142 / 60%),
+        0 0 32px 6px oklch(85% 0.35 142 / 20%);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  --animate-pulse-red: pulse-glow-red 2.5s ease-in-out infinite;
+  --animate-bar-fill:  bar-fill-in    1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  @keyframes pulse-glow-red {
+    0%, 100% {
+      box-shadow: 0 0 0px 0px oklch(60% 0.22 27 / 0%);
+    }
+    50% {
+      box-shadow:
+        0 0 8px 1px oklch(60% 0.22 27 / 50%),
+        0 0 20px 4px oklch(60% 0.22 27 / 15%);
+    }
+  }
+
+  @keyframes bar-fill-in {
+    from { width: 0%; }
+  }
+
+  --animate-node-ping: node-ping 2.5s ease-in-out infinite;
+  --animate-route-dash: route-dash 25s linear infinite;
+
+  @keyframes node-ping {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes route-dash {
+    to {
+      stroke-dashoffset: -100;
+    }
+  }
 }
 
-/* ── Base ───────────────────────────────────────────── */
-body {
-  background: var(--color-nexus-bg);
-  color: var(--color-nexus-text);
-  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  margin: 0;
-  overflow-x: hidden;
+/* ── Dark mode variant (class-based) ── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Base layer reset + global styles ── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-bg);
+  }
+
+  /* Scrollbar – thin, terminal style */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neon-dim);
+  }
+
+  /* Selection highlight */
+  ::selection {
+    background: var(--color-neon);
+    color: var(--color-bg);
+  }
+
+  /* Global focus ring */
+  :focus-visible {
+    outline: 1px solid var(--color-neon);
+    outline-offset: 2px;
+  }
+
+  /* Baseline transition for all interactive elements */
+  button, a, [role="button"] {
+    transition-property: color, background-color, border-color, opacity;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
 }
 
-/* ── Scrollbar ──────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--color-nexus-bg); }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #475569; }
+/* ── Custom helper classes ── */
 
-/* ── Glassmorphism Panel ────────────────────────────── */
-.glass-panel {
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(30, 41, 59, 0.6);
-  border-radius: 12px;
+/* Neon glow text */
+.neon-text {
+  color: var(--color-neon);
+  text-shadow:
+    0 0 8px oklch(85% 0.35 142 / 80%),
+    0 0 20px oklch(85% 0.35 142 / 40%);
 }
 
-/* ── Node Pulse Animation ───────────────────────────── */
-@keyframes pulse-green {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
-  50% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+/* Scanline overlay (decorative retro CRT effect) */
+.scanlines {
+  position: relative;
 }
-@keyframes pulse-amber {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.5); }
-  50% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
-}
-@keyframes pulse-red {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.6); }
-  50% { box-shadow: 0 0 0 12px rgba(248, 113, 113, 0); }
-}
-
-.node-green  { animation: pulse-green 2.5s ease-in-out infinite; }
-.node-amber  { animation: pulse-amber 1.8s ease-in-out infinite; }
-.node-red    { animation: pulse-red 1.2s ease-in-out infinite; }
-
-/* ── Fade-in entrance ───────────────────────────────── */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in { animation: fade-in-up 0.4s ease-out both; }
-
-/* ── Feed Item Slide ────────────────────────────────── */
-@keyframes slide-in {
-  from { opacity: 0; transform: translateX(-20px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-.animate-slide-in { animation: slide-in 0.3s ease-out both; }
-
-/* ── Circuit Breaker Status LED ─────────────────────── */
-.led { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-.led-closed    { background: #34d399; box-shadow: 0 0 6px #34d399; }
-.led-open      { background: #f87171; box-shadow: 0 0 8px #f87171; }
-.led-half-open { background: #fbbf24; box-shadow: 0 0 6px #fbbf24; }
-
-/* ── Pareto Axis ────────────────────────────────────── */
-.pareto-dot {
-  transition: all 0.3s ease;
-}
-.pareto-dot:hover {
-  transform: scale(1.6);
-  filter: brightness(1.3);
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    oklch(0% 0 0 / 4%) 2px,
+    oklch(0% 0 0 / 4%) 4px
+  );
+  z-index: 10;
 }
