@@ -9,7 +9,7 @@ NEXUS is a multi-agent reinforcement learning (MARL) system that transforms reac
 
 The system is grounded in two unconventional insights: (1) the most valuable supply chain intelligence doesn't come from official APIs — it surfaces in unstructured human signals hours earlier; and (2) the field can borrow battle-tested resilience patterns from distributed systems engineering and behavioral finance to solve problems that logistics has never framed correctly.
 
-Built entirely on Google Cloud infrastructure and aligned with UN SDGs 9, 11, 13, and 17, NEXUS demonstrates that AI applied to global logistics isn't just an efficiency play — it's a climate and equity intervention.
+Built entirely on Google Cloud infrastructure, NEXUS demonstrates that AI applied to global logistics isn't just an efficiency play — it's a climate and equity intervention.
 
 ---
 
@@ -423,23 +423,6 @@ Manages real-time state synchronization for the control tower UI. When the Cloud
 
 ---
 
-## 5. UN SDG ALIGNMENT
-
-### This is not a commercial pitch. It's development infrastructure.
-
-**SDG 9 — Industry, Innovation, Infrastructure**:
-Supply chain failures disproportionately impact developing economies that lack redundancy. NEXUS's federated model enables small logistics players to access intelligence previously available only to global multinationals, reducing the resilience gap.
-
-**SDG 11 — Sustainable Cities and Communities**:
-Urban logistics accounts for 25% of city CO2 emissions. NEXUS's carbon-aware routing demonstrably reduces last-mile emissions. Cities using NEXUS can track logistics emissions in real time and optimize municipal supply contracts accordingly.
-
-**SDG 13 — Climate Action**:
-The Green-Resilience Correlation module demonstrates and incentivizes lower-carbon routing. By making carbon efficiency a resilience argument (not just an ESG argument), NEXUS accelerates decarbonization adoption among cost-focused operators who would otherwise deprioritize it.
-
-**SDG 17 — Partnerships for the Goals**:
-The Federated Intelligence Network is architected as a global commons. Competing companies share intelligence for mutual benefit — a new model of pre-competitive collaboration that SDG 17 explicitly calls for. This is the technical infrastructure for supply chain diplomacy.
-
----
 
 ## 6. MVP SCOPE — WHAT TO BUILD FOR THE HACKATHON
 
@@ -702,7 +685,7 @@ NEXUS/                     # Root Project Directory
 
 **The moat**: "The more companies join our federated intelligence network, the smarter every participant's system gets. This is the first time competitive logistics firms are incentivized to share intelligence — because the math makes it rational."
 
-**The SDG story**: "We proved something nobody had measured before: the greenest shipping routes are also the most resilient. Choosing sustainability is choosing resilience. NEXUS makes this case with data, and puts it into every routing decision, automatically."
+**The sustainability story**: "We proved something nobody had measured before: the greenest shipping routes are also the most resilient. Choosing sustainability is choosing resilience. NEXUS makes this case with data, and puts it into every routing decision, automatically."
 
 **The closer**: "We're not building a dashboard. We're building the nervous system for global trade."
 
