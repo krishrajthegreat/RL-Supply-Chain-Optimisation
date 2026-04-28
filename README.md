@@ -1,6 +1,9 @@
 # NEXUS — Neural EXecution and Unified Supply-chain Intelligence System
+<img width="1919" height="874" alt="image" src="https://github.com/user-attachments/assets/e2b34f3d-c2da-41a6-bbe0-6ec643abd4cb" />
 
 ## Executive Summary
+Checkout demo at: https://nexus-krish.web.app/ 
+
 
 NEXUS is a multi-agent reinforcement learning (MARL) system designed to transform reactive supply chain management into a self-optimizing, proactively resilient network. Instead of relying on dashboards that display issues after they occur, NEXUS deploys six specialized AI agents that cooperate in real-time to predict, isolate, reroute, pre-position, and communicate around supply disruptions before they cascade. 
 
@@ -40,6 +43,16 @@ Maintains a live intelligence model of carrier reliability, capacity, and financ
 
 ### 6. HERALD — Stakeholder Communication Agent
 Manages all outbound communications and incorporates a Behavioral Nudge Engine. It tracks human overrides of algorithmic decisions and reframes recommendations to counter cognitive biases (e.g., loss aversion) and improve system trust.
+
+
+---
+**User Flow Diagram:**
+<img width="6965" height="6489" alt="image" src="https://github.com/user-attachments/assets/82d3f552-ee70-44cd-a3af-a283262acf57" />
+
+**System Architecture Diagram:**
+<img width="8191" height="4634" alt="image" src="https://github.com/user-attachments/assets/224aa8eb-4e00-487b-b2a0-fd1801d054a9" />
+
+
 
 ---
 
