@@ -519,6 +519,67 @@ Auth: Firebase Auth
 
 ---
 
+## 6.5 CONTROL TOWER FRONTEND ARCHITECTURE
+
+The frontend interface has undergone a complete high-fidelity architectural rewrite to align with the core MARL agent logic and the GCP deployment strategy. Designed using a **Brutalist-minimalist** aesthetic, the UI leverages `JetBrains Mono` typography and a high-contrast dark theme centered around a signature neon green (`oklch(85% 0.35 142)`) to convey a premium, high-stakes command center feel.
+
+The architecture relies on React, Tailwind CSS (v4), and multiple specialized visualization engines. The core layout utilizes a fixed left sidebar with 8 dedicated application views, each meticulously designed to expose the inner workings of specific MARL agents:
+
+### 1. The Simulation Engine (`useSimulation.ts`)
+Before detailing the views, it is critical to understand the UI's data pipeline. The frontend utilizes a centralized WebSocket-compatible state hook (`useSimulation.ts`) that implements the **AG-UI Protocol**. This protocol standardizes how RL environment steps (observations, rewards, actions) are broadcasted via `STATE_DELTA` events to the React components. This decoupling ensures the UI remains hyper-responsive whether driven by local mock intervals or the live FastAPI/ONNX backend.
+
+### 2. Global Map (`/global-map`)
+**Core Technology:** Deck.gl + MapLibre GL
+**Purpose:** The primary visualization surface for the logistics network. We migrated from static SVG to Deck.gl to handle thousands of concurrent entities with WebGL hardware acceleration.
+- **Layers:** Implements 6 distinct data layers including pulsing `ScatterplotLayer` for nodes, animated `ArcLayer` for shipments, `TextLayer` for clean typography, and custom glowing effects for disrupted regions.
+- **Agent Integration:** Visualizes the **NAVIGATOR** agent's decisions via a dynamic Pareto-optimal trade-off panel, allowing operators to see the exact time/cost/carbon parameters the RL model used to select a reroute during a disruption (e.g., the Hamburg Storm scenario).
+
+### 3. RL Optimizer (`/rl-optimizer`)
+**Core Technology:** Three.js + Recharts
+**Purpose:** Exposes the "brain" of the operation. This page proves that NEXUS isn't just a dashboard, but a live Reinforcement Learning system.
+- **Visuals:** Uses a 3D force-directed node graph to visualize network topology and agent state. 
+- **Metrics:** Plots the cumulative episodic reward curve and action entropy over time. An active Action Log provides a real-time ledger of exactly what the HAPPO agents are executing step-by-step.
+
+### 4. Shipment Tracker (`/shipments`)
+**Core Technology:** React + Tailwind Grid
+**Agent Mapping:** **NAVIGATOR** and **HERALD**
+**Purpose:** A high-density, sortable, and filterable data table managing all active global shipments. 
+- **Features:** Clicking a shipment expands a detailed 3-panel view containing:
+  1. An animated route timeline tracking node-by-node progression.
+  2. A granular cost breakdown detailing freight cost, carbon emissions (kg CO₂), and cargo value.
+  3. A real-time **SENTINEL** risk score gauge that triggers **NAVIGATOR** advisories when risk exceeds safety thresholds.
+
+### 5. Risk Intelligence (`/risk`)
+**Core Technology:** Recharts
+**Agent Mapping:** **SENTINEL**
+**Purpose:** The nerve center for early warning detection and the Green-Resilience thesis.
+- **OSINT Feed:** A mock terminal feed streaming Dark Signal Intelligence across SOCIAL, NEWS, FINANCIAL, and WEATHER channels.
+- **Node Matrix:** A 15-node health matrix utilizing D3-style sparkline area charts to track health degradation trends.
+- **Green-Resilience Scatter:** A critical chart plotting Carbon Intensity vs. Disruption Risk, visually proving to stakeholders that low-carbon sea routes consistently cluster in the high-resilience quadrant—justifying the agent's routing bias.
+
+### 6. Executive Insights (`/insights`)
+**Core Technology:** D3.js (`d3-geo`, Natural Earth TopoJSON)
+**Purpose:** High-level strategic overview tailored for C-suite operators.
+- **Visuals:** A fully interactive, self-contained D3 choropleth map. Countries are dynamically shaded based on the aggregate health of the logistics nodes within their borders. 
+- **Metrics:** Displays regional risk breakdowns, top active network threats, and macro-level KPI cards (Network Health Index, SLA Compliance, Nodes at Risk).
+
+### 7. Fleet & Carriers (`/fleet`)
+**Core Technology:** React + Recharts
+**Agent Mapping:** **BROKER**
+**Purpose:** Carrier health and performance monitoring.
+- **Features:** 6 individual carrier cards displaying On-Time Performance (OTP) and capacity utilization via custom arc gauges. 
+- **Broker Log:** A dedicated decision log showing the exact moments the BROKER agent issues a "Soft Blackout" flag on a degrading carrier (e.g., Hapag-Lloyd dropping 12% OTP) and recommends alternatives.
+
+### 8. Network Resilience (`/resilience`)
+**Core Technology:** React + Recharts
+**Agent Mapping:** **GUARDIAN** and **STOCKPILE**
+**Purpose:** Proactive mitigation and circuit breaker management.
+- **Circuit Board:** Displays the real-time state (CLOSED, HALF-OPEN, OPEN) of all 15 network nodes, driven by the GUARDIAN heuristic. Clicking a node reveals the specific threshold logic that triggered the state change.
+- **Stockpile Transfers:** Visualizes active inventory pre-positioning events triggered by upstream disruptions, calculating the exact percentage drop in downstream stockout probability.
+- **Recovery Timeline:** A horizontal bar chart tracking the time-to-resolution for historical disruptions, emphasizing the speed advantage of MARL over traditional approaches.
+
+---
+
 ## 7. EVALUATION METRICS
 
 ### How to Measure That This Works
