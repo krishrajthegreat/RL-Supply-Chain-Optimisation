@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard,
   Globe,
@@ -19,12 +19,12 @@ import { cn } from '@/lib/utils'
 const NAV_ITEMS = [
   { label: 'Dashboard',          to: '/dashboard',   icon: LayoutDashboard },
   { label: 'Global Map',         to: '/global-map',  icon: Globe },
+  { label: 'RL Optimizer',       to: '/rl-optimizer',icon: BrainCircuit },
   { label: 'Shipment Tracker',   to: '/shipments',   icon: PackageSearch },
   { label: 'Risk Intelligence',  to: '/risk',        icon: ShieldAlert },
   { label: 'Executive Insights', to: '/insights',    icon: LineChart },
   { label: 'Fleet & Carriers',   to: '/fleet',       icon: Truck },
   { label: 'Network Resilience', to: '/resilience',  icon: Network },
-  { label: 'RL Optimizer',       to: '/rl-optimizer',icon: BrainCircuit },
 ] as const
 
 /* ──────────────────────────────────────────────────────────────
@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <aside className="flex w-[240px] shrink-0 flex-col border-r border-border bg-bg">
 
         {/* Brand block — matches landing page logo */}
-        <div className="flex items-center gap-3 px-5 pt-6 pb-5 border-b border-border">
+        <Link to="/" className="flex items-center gap-3 px-5 pt-6 pb-5 border-b border-border hover:bg-white/5 transition-colors">
           <div className="relative w-6 h-6 shrink-0">
             <svg viewBox="0 0 32 32" fill="none" className="w-full h-full">
               <rect x="1" y="1" width="30" height="30" rx="3" stroke="oklch(85% 0.35 142)" strokeWidth="1.5" />
@@ -53,11 +53,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <h1 className="font-display text-[13px] font-bold tracking-[0.18em] text-neon uppercase leading-none">
               NEXUS
             </h1>
-            <p className="text-[9px] tracking-[0.22em] text-muted uppercase mt-0.5">
-              Control Tower
+            <p className="text-[7.5px] tracking-[0.05em] text-muted uppercase mt-1 leading-tight">
+              Proactive Supply<br/>Chain Intelligence
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Section label */}
         <div className="px-5 pt-5 pb-2">
