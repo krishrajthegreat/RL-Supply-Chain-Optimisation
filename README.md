@@ -63,6 +63,27 @@ For the purpose of the Google Solutions Challenge Hackathon, the system operates
 
 ---
 
+## Future Scope: The Roadmap to Global Resilience
+
+While the current MVP demonstrates the core MARL logic on GCP, the roadmap for NEXUS extends into a global logistics nervous system:
+
+1.  **Federated Intelligence Network:** Implementing Federated Learning to allow decentralized model training across different logistics firms, building a collective intelligence on global risks (port strikes, canal blockages) without sharing raw shipment data.
+2.  **Live Multi-Modal OSINT Pipeline:** Moving beyond mock data to a live **Vertex AI** pipeline that scrapes and classifies real-time news and social signals using **Gemini 1.5 Pro**.
+3.  **IoT & Telemetry Integration:** Connecting to **Google Cloud IoT Core** to ingest live telemetry from container sensors (temperature, vibration, GPS), allowing agents to respond to the physical condition of cargo.
+4.  **Blockchain-Enabled Auto-Contracting:** Integrating with Google's **Blockchain Node Engine** to automatically trigger payments and capacity re-bookings when the `GUARDIAN` or `BROKER` agents execute a network pivot.
+5.  **Advanced XAI (Explainable AI):** Expanding the Gemini explainability layer to provide counterfactual reasoning, answering questions like *"How much would we have lost if the circuit breaker hadn't fired?"*
+
+---
+
+## Submission Highlights (For Judges)
+
+*   **Architectural Novelty:** Uses **HAPPO (Heterogeneous-Agent PPO)**, a cutting-edge MARL framework that handles specialized agents better than standard MAPPO.
+*   **The "Dark Signal" Edge:** Mining informal social signals for early warnings—a capability missing from almost all commercial logistics platforms.
+*   **The Behavioral Layer:** The **Behavioral Nudge Engine** treats the human-AI interface as a first-class engineering problem, tracking and mitigating human cognitive biases in logistics.
+*   **Full GCP Integration:** Seamlessly leverages Cloud Run, Vertex AI (Gemini), Firebase Realtime DB, and the Google Maps Platform.
+
+---
+
 
 ## Project Structure
 
