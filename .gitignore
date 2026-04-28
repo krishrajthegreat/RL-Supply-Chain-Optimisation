@@ -92,3 +92,8 @@ out/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Workspace Skills
+claude-skills/
+design\ skills/
+
