@@ -4,7 +4,7 @@
 
 NEXUS is a multi-agent reinforcement learning (MARL) system designed to transform reactive supply chain management into a self-optimizing, proactively resilient network. Instead of relying on dashboards that display issues after they occur, NEXUS deploys six specialized AI agents that cooperate in real-time to predict, isolate, reroute, pre-position, and communicate around supply disruptions before they cascade. 
 
-Built entirely on Google Cloud infrastructure and aligned with United Nations Sustainable Development Goals (SDGs 9, 11, 13, and 17), NEXUS demonstrates that applying AI to global logistics serves both efficiency and global sustainability.
+Built entirely on Google Cloud infrastructure, NEXUS demonstrates that applying AI to global logistics serves both efficiency and global sustainability.
 
 ---
 
@@ -63,14 +63,6 @@ For the purpose of the Google Solutions Challenge Hackathon, the system operates
 
 ---
 
-## UN SDG Alignment
-
-* **SDG 9 (Industry, Innovation, Infrastructure):** Reduces the resilience gap by providing federated intelligence to all logistics participants.
-* **SDG 11 (Sustainable Cities and Communities):** Reduces urban logistics emissions through carbon-aware routing.
-* **SDG 13 (Climate Action):** Proves that sustainable routing correlates with resilience, accelerating decarbonization adoption.
-* **SDG 17 (Partnerships for the Goals):** Establishes a pre-competitive data-sharing commons for mutual supply chain intelligence.
-
----
 
 ## Project Structure
 
