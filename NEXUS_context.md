@@ -49,15 +49,15 @@ Supply chains are natively multi-agent environments:
 
 Single-agent RL cannot model this. Classic optimization (linear programming, heuristics) cannot learn from experience or adapt to novel disruption patterns. MARL uniquely solves the coordination problem.
 
-### Framework Selection: MAPPO with CTDE
+### Framework Selection: HAPPO with CTDE
 
-**Chosen Framework: Multi-Agent Proximal Policy Optimization (MAPPO)**
+**Chosen Framework: Heterogeneous-Agent Proximal Policy Optimization (HAPPO)**
 
 Rationale over alternatives:
-- **vs. MADDPG**: MAPPO handles discrete action spaces more naturally (route selection is discrete); MADDPG requires continuous actions
-- **vs. QMIX**: MAPPO makes fewer assumptions about reward decomposability; supply chain rewards are deeply entangled
-- **vs. IPPO (Independent PPO)**: MAPPO's centralized critic dramatically reduces non-stationarity during training
-- **vs. MAAC**: MAPPO has stronger theoretical convergence guarantees and better empirical SOTA performance on cooperative tasks
+- **vs. MAPPO**: HAPPO fundamentally resolves the sequential update compounding issues and numerical instability that plague MAPPO when dealing with agents that have completely different (heterogeneous) observation and action spaces.
+- **vs. MADDPG**: HAPPO handles discrete action spaces more naturally while supporting our heterogeneous multi-agent setting out-of-the-box.
+- **vs. QMIX**: HAPPO makes fewer assumptions about reward decomposability; supply chain rewards are deeply entangled.
+- **vs. IPPO (Independent PPO)**: HAPPO's centralized critic dramatically reduces non-stationarity during training and features sequential monotonic updates.
 
 **Paradigm: Centralized Training, Decentralized Execution (CTDE)**
 
@@ -524,7 +524,7 @@ When a node detects anomaly, it broadcasts a structured distress signal to neigh
 │  Sources: IoT/GPS, Social APIs, GDELT, ACLED, Carrier EDI       │
 ├─────────────────────────────────────────────────────────────────┤
 │  INTELLIGENCE LAYER                                              │
-│  Vertex AI: MARL training (MAPPO on TPUs)                       │
+│  Vertex AI: MARL training (HAPPO on TPUs)                       │
 │  Vertex AI Model Registry: versioned agent policies              │
 │  Google Earth Engine: satellite imagery analysis                 │
 │  Gemini API: NLP for OSINT signal processing                    │
@@ -724,57 +724,53 @@ NEXUS differentiates on 5 dimensions:
 ## 12. PROJECT STRUCTURE
 
 ```
-nexus/
-├── agents/
-│   ├── sentinel/          # Risk detection agent
-│   │   ├── model.py       # MAPPO policy network
-│   │   ├── osint.py       # Dark signal NLP pipeline
-│   │   ├── financial.py   # Supplier health radar
-│   │   └── geo_risk.py    # Geopolitical risk scoring
-│   ├── navigator/         # Routing agent
-│   │   ├── model.py
-│   │   ├── pareto.py      # Multi-objective optimization
-│   │   └── green.py       # Carbon-resilience correlation
-│   ├── guardian/          # Circuit breaker agent
-│   │   ├── model.py
-│   │   └── state_machine.py
-│   ├── stockpile/         # Inventory pre-positioning agent
-│   │   ├── model.py
-│   │   └── preposition.py
-│   ├── broker/            # Carrier intelligence agent
-│   │   ├── model.py
-│   │   └── health_score.py
-│   └── herald/            # Communication agent
-│       ├── model.py
-│       ├── triage.py      # Alert prioritization
-│       └── nudge.py       # Behavioral nudge engine
-├── environment/
-│   ├── supply_chain_env.py  # PettingZoo multi-agent environment
-│   ├── disruption_sampler.py
-│   └── network_graph.py
-├── training/
-│   ├── mappo_trainer.py
-│   ├── curriculum.py
-│   └── evaluation.py
-├── federated/
-│   ├── aggregator.py
-│   └── privacy.py
-├── api/
-│   ├── main.py            # FastAPI server
-│   └── routes/
-├── frontend/
+NEXUS/                     # Root Project Directory
+├── .gitignore             # Root git ignore
+├── README.md              # Root documentation
+├── NEXUS_context.md       # Full architecture context
+├── NEXUS_opus-prompt.md   # Prompting context
+├── claude-skills/         # AI capabilities
+├── design skills/         # AI design capabilities
+├── frontend/              # Current Frontend V2 Interface
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── ControlTower.jsx
-│   │   │   ├── AgentFeed.jsx
-│   │   │   ├── CircuitBreakerPanel.jsx
-│   │   │   ├── StockpileView.jsx
-│   │   │   ├── NudgeModal.jsx
-│   │   │   └── ParetoChart.jsx
-│   │   └── App.jsx
-└── deploy/
-    ├── gke/
-    └── terraform/
+│   │   ├── components/    # Reusable React components
+│   │   ├── pages/         # Application views
+│   │   ├── lib/           # Utility functions
+│   │   ├── assets/        # Static assets
+│   │   ├── index.css      # Core styling and variables
+│   │   └── App.tsx        # Main application entry
+│   ├── index.html         # Vite HTML entry
+│   ├── vite.config.ts     # Vite configuration
+│   └── package.json       # Frontend dependencies
+└── nexus/                 # Python Backend & MARL Framework
+    ├── requirements.txt   # Backend dependencies
+    ├── README.md          # Backend documentation
+    ├── smoke_test_training.py # Verification script
+    ├── test_*.py          # Backend tests
+    └── nexus/             # Core Backend Module
+        ├── api/           # FastAPI Server
+        │   ├── main.py
+        │   └── routes/
+        ├── agents/        # MARL Agents
+        │   ├── base_agent.py # Agent abstractions
+        │   ├── sentinel/  # Active: Risk detection agent
+        │   ├── navigator/ # [Planned] Routing agent
+        │   ├── guardian/  # [Planned] Circuit breaker agent
+        │   ├── stockpile/ # [Planned] Inventory agent
+        │   ├── broker/    # [Planned] Carrier agent
+        │   └── herald/    # [Planned] Communication agent
+        ├── environment/   # Simulation Environment
+        │   ├── supply_chain_env.py
+        │   ├── disruption_sampler.py
+        │   └── network_graph.py
+        ├── training/      # HAPPO Framework
+        │   ├── happo_trainer.py
+        │   ├── networks.py
+        │   ├── rollout_buffer.py
+        │   ├── train.py
+        │   ├── eval_rollout.py
+        │   └── synthetic_scenarios.py
+        └── data/          # Seed data (JSON)
 ```
 
 ---
